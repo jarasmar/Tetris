@@ -53,9 +53,22 @@ function update(time = 0) {
     player.pos.y++;
     dropCounter = 0;
   }
-  
+
   draw();
   requestAnimationFrame(update);
 }
+
+document.addEventListener('keydown', event => {
+  // Find keyCode for arrows
+  // console.log(event);
+
+  if (event.keyCode === 37) {
+    player.pos.x--
+  }
+
+  if (event.keyCode === 39) {
+    player.pos.x++
+  }
+});
 
 update();

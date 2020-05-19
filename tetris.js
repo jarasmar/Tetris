@@ -37,6 +37,11 @@ function draw() {
   drawMatrix(player.matrix, player.pos);
 }
 
+function playerDrop() {
+  player.pos.y++;
+  dropCounter = 0;
+}
+
 // Every second the piece drops
 let dropCounter = 0;
 let dropInterval = 1000;
@@ -50,8 +55,7 @@ function update(time = 0) {
   // Everytime a second passes, piece drops one position
   dropCounter += deltaTime;
   if (dropCounter > dropInterval) {
-    player.pos.y++;
-    dropCounter = 0;
+    playerDrop();
   }
 
   draw();
@@ -67,8 +71,7 @@ document.addEventListener('keydown', event => {
   } else if (event.keyCode === 39) {
     player.pos.x++
   } else if (event.keyCode === 40) {
-    player.pos.y++;
-    dropCounter = 0;
+    playerDrop();
   }
 });
 

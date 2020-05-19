@@ -4,10 +4,6 @@ const context = canvas.getContext('2d');
 // Scale pieces x20
 context.scale(20, 20);
 
-// Canvas style
-context.fillStyle = '#000';
-context.fillRect(0, 0, canvas.width, canvas.height);
-
 // Piece on 'T' Shape
 const matrix = [
   [0, 0, 0],
@@ -33,4 +29,17 @@ const player = {
   matrix: matrix,
 }
 
-drawMatrix(player.matrix, player.pos);
+function draw() {
+  // Canvas style
+  context.fillStyle = '#000';
+  context.fillRect(0, 0, canvas.width, canvas.height);
+  
+  drawMatrix(player.matrix, player.pos);
+}
+
+function update() {
+  draw();
+  requestAnimationFrame(update);
+}
+
+update();

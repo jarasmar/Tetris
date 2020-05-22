@@ -95,6 +95,14 @@ function playerDrop() {
   dropCounter = 0;
 }
 
+function playerMove(dir) {
+  // doesn't allow collision with the sides or other players
+  player.pos.x += dir;
+  if (collide(arena, player)) {
+    player.pos.x -= dir;
+  }
+}
+
 // Every second the piece drops
 let dropCounter = 0;
 let dropInterval = 1000;
@@ -120,9 +128,9 @@ document.addEventListener('keydown', event => {
   // console.log(event);
 
   if (event.keyCode === 37) {
-    player.pos.x--
+    playerMove(-1)
   } else if (event.keyCode === 39) {
-    player.pos.x++
+    playerMove(1)
   } else if (event.keyCode === 40) {
     playerDrop();
   }

@@ -35,12 +35,12 @@ function drawMatrix(matrix, offset) {
 }
 
 const arena = createMatrix(12, 20);
-console.log(arena); console.table(arena);
+// console.log(arena); console.table(arena);
 
 const player = {
   pos: {x: 5, y: 5},
   matrix: matrix,
-}
+};
 
 function draw() {
   // Canvas style
@@ -48,6 +48,11 @@ function draw() {
   context.fillRect(0, 0, canvas.width, canvas.height);
   
   drawMatrix(player.matrix, player.pos);
+}
+
+// copy values from player at arena in right position
+function merge(arena, player) {
+
 }
 
 function playerDrop() {

@@ -11,6 +11,16 @@ const matrix = [
   [0, 1, 0]
 ];
 
+// create sections in the background to hold the pieces at bottom
+function createMatrix(w, h) {
+  const matrix = []
+  // while height is not zero, decrease
+  while (h--) {
+    matrix.push(new Array(w).fill(0));
+  }
+  return matrix;
+}
+
 function drawMatrix(matrix, offset) {
   matrix.forEach((row, y) => {
     row.forEach((value, x) => {
@@ -23,6 +33,9 @@ function drawMatrix(matrix, offset) {
     });
   });
 }
+
+const arena = createMatrix(12, 20);
+console.log(arena); console.table(arena);
 
 const player = {
   pos: {x: 5, y: 5},

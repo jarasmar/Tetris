@@ -52,7 +52,33 @@ function draw() {
 
 // copy values from player at arena in right position
 function merge(arena, player) {
+  player.matrix.forEach((row, y) => {
+    row.forEach((value, x) => {
+      if (value !== 0) {
+        arena[y + player.pos.y][x + player.pos.x] = value;
+      }
+    })
+  });
+};
 
+function collide(arena, player) {
+  // rename player matrix and position
+  const [m, o] = [player.matrix, player.pos];
+  
+  // for player matrix: y is column, x is row
+  for (let y = 0; y < m.length; ++y) {
+    for (let x = 0; x < m[y].length; ++x) {
+      // if the matrix of player is not 0
+      if (m[y][x] !== 0 &&
+        // and the arena is not 0
+        (arena[y + o.y] &&
+          arena[y + o.y][x + o.x]) !== 0) {
+          // we collide
+          return true;
+        }
+    }
+  }
+  return false;
 }
 
 function playerDrop() {

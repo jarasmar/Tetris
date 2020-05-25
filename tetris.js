@@ -222,6 +222,10 @@ function update(time = 0) {
   requestAnimationFrame(update);
 }
 
+function updateScore() {
+  document.getElementById('score').innerText = player.score;
+}
+
 const colors = [
   null,
   '#FF0000',
@@ -238,7 +242,8 @@ const arena = createMatrix(12, 20);
 
 const player = {
   pos: {x: 0, y: 0},
-  matrix: createPiece('T'),
+  matrix: null,
+  score: 0,
 };
 
 
@@ -259,4 +264,5 @@ document.addEventListener('keydown', event => {
   }
 });
 
+playerReset();
 update();

@@ -4,13 +4,6 @@ const context = canvas.getContext('2d');
 // Scale pieces x20
 context.scale(20, 20);
 
-// Piece on 'T' Shape
-const matrix = [
-  [0, 0, 0],
-  [1, 1, 1],
-  [0, 1, 0]
-];
-
 // create sections in the background to hold the pieces at bottom
 function createMatrix(w, h) {
   const matrix = []
@@ -34,14 +27,6 @@ function drawMatrix(matrix, offset) {
   });
 }
 
-const arena = createMatrix(12, 20);
-// console.log(arena); console.table(arena);
-
-const player = {
-  pos: {x: 5, y: 5},
-  matrix: matrix,
-};
-
 function draw() {
   // Canvas style
   context.fillStyle = '#000';
@@ -51,6 +36,16 @@ function draw() {
   drawMatrix(arena, {x: 0, y: 0});
   // draws the moving player
   drawMatrix(player.matrix, player.pos);
+}
+
+function createPiece(type ) {
+  if (type === 'T') {
+    return [
+      [0, 0, 0],
+      [1, 1, 1],
+      [0, 1, 0]
+    ];
+  }
 }
 
 // copy values from player at arena in right position
@@ -159,6 +154,15 @@ function update(time = 0) {
   draw();
   requestAnimationFrame(update);
 }
+
+const arena = createMatrix(12, 20);
+// console.log(arena); console.table(arena);
+
+const player = {
+  pos: {x: 5, y: 5},
+  matrix: createPiece('T'),
+};
+
 
 document.addEventListener('keydown', event => {
   // Find keyCode for arrows

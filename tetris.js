@@ -115,6 +115,22 @@ function collide(arena, player) {
   return false;
 }
 
+// clear full lines in arena
+function arenaSweep() {
+  outer: for (let y = arena.length - 1; y > 0; --y) {
+    for (let x = 0; x < arena[y].length;  ++x) {
+      // if not fully populated goes back to the for loop
+      if (arena[y][x] === 0) {
+        continue outer;
+      }
+    }
+    // if full, empty the row and add it to the top
+    const row = arena.splice(y, 1)[0].fill(0);
+    arena.unshift(row);
+    ++y;
+  }
+}
+
 function playerDrop() {
   player.pos.y++;
   if (collide(arena, player)) {
@@ -122,6 +138,7 @@ function playerDrop() {
     player.pos.y--;
     merge(arena, player);
     playerReset();
+    arenaSweep();
   }
   dropCounter = 0;
 }

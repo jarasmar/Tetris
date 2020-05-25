@@ -121,7 +121,7 @@ function playerDrop() {
     // move the player one up, merge with arena and move back to the top to start again
     player.pos.y--;
     merge(arena, player);
-    player.pos.y = 0;
+    playerReset();
   }
   dropCounter = 0;
 }
@@ -132,6 +132,15 @@ function playerMove(dir) {
   if (collide(arena, player)) {
     player.pos.x -= dir;
   }
+}
+
+// New pieces are random and appear top center
+function playerReset() {
+  const pieces = 'ILJOTSZ'; 
+  player.matrix = createPiece(pieces[pieces.length * Math.random() | 0]);
+  player.pos.y = 0;
+  player.pos.x = (arena[0].length / 2 | 0) -
+                  (player.matrix[0].length / 2 | 0);
 }
 
 function playerRotate(dir) {
@@ -195,7 +204,7 @@ const arena = createMatrix(12, 20);
 // console.log(arena); console.table(arena);
 
 const player = {
-  pos: {x: 5, y: 5},
+  pos: {x: 0, y: 0},
   matrix: createPiece('T'),
 };
 

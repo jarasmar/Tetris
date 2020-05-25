@@ -117,6 +117,7 @@ function collide(arena, player) {
 
 // clear full lines in arena
 function arenaSweep() {
+  let rowCount = 1;
   outer: for (let y = arena.length - 1; y > 0; --y) {
     for (let x = 0; x < arena[y].length;  ++x) {
       // if not fully populated goes back to the for loop
@@ -124,10 +125,13 @@ function arenaSweep() {
         continue outer;
       }
     }
-    // if full, empty the row and add it to the top
+    // if full, empty the row, add space to top
     const row = arena.splice(y, 1)[0].fill(0);
     arena.unshift(row);
     ++y;
+    // add points to score. Every line doubles points
+    player.score += rowCount * 10;
+    rowCount *= 2;
   }
 }
 
@@ -139,6 +143,7 @@ function playerDrop() {
     merge(arena, player);
     playerReset();
     arenaSweep();
+    updateScore();
   }
   dropCounter = 0;
 }
@@ -159,9 +164,11 @@ function playerReset() {
   player.pos.x = (arena[0].length / 2 | 0) -
                   (player.matrix[0].length / 2 | 0);
 
-  // if we collide inmediately with a new piece: game over
+  // if we collide inmediately with a new piece: game over (clean arena and reset score)
   if (collide(arena, player)) {
     arena.forEach(row => row.fill(0));
+    player.score = 0;
+    updateScore();
   }
 }
 
@@ -265,4 +272,5 @@ document.addEventListener('keydown', event => {
 });
 
 playerReset();
+updateScore();
 update();

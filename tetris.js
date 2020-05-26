@@ -1,8 +1,17 @@
-const canvas = document.getElementById('tetris');
-const context = canvas.getContext('2d');
+'use strict';
+
+function Tetris() {
+  this.canvas = document.getElementById('tetris');
+  this.context = canvas.getContext('2d');
+};
+
+
+
+// const canvas = document.getElementById('tetris');
+// const context = canvas.getContext('2d');
 
 // Scale pieces x20
-context.scale(20, 20);
+
 
 // create sections in the background to hold the pieces at bottom
 function createMatrix(w, h) {
@@ -271,6 +280,7 @@ document.addEventListener('keydown', event => {
   }
 });
 
+this.context.scale(20, 20);
 playerReset();
 updateScore();
 update();
